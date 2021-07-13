@@ -19,10 +19,6 @@ export default class Chat extends React.Component {
           backgroundColor: this.state.btnColor,
         }}
       >
-        <Button
-          title="Go to Start"
-          onPress={() => this.props.navigation.navigate("Start")}
-        />
       </View>
     );
   }

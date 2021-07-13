@@ -1,12 +1,15 @@
+import { Assets } from "@react-navigation/stack";
 import React from "react";
 import {
   ImageBackground,
   View,
   Text,
   Button,
+  Alert,
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  
 } from "react-native";
 
 const image = require('../assets/background-image.png');
@@ -18,7 +21,14 @@ export default class Start extends React.Component {
   }
 
   render() {
-    let { btnColor } = this.state
+    let { btnColor,name } = this.state
+
+
+  const onPressChat = (name) => {
+    if (name === "") {
+      return Alert.alert('Please Enter Your Name to Continue.');
+    }
+  };
 
     return (
       <View style={styles.container}>
@@ -64,7 +74,8 @@ export default class Start extends React.Component {
               style={{ backgroundColor: btnColor, height: 60, }}
               onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, btnColor: this.state.btnColor })}
             >
-              <Text style={styles.startText}>Start Chatting</Text>
+              <Text style={styles.startText}
+              onPress={() => onPressChat(name)}>Start Chatting</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
