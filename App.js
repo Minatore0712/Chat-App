@@ -10,23 +10,17 @@ import 'react-native-gesture-handler';
 
 // import react Navigation
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 
 export default class App extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { text: "" };
-  // }
 
   render() {
     return (
       <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Start">
         <Stack.Screen
           name='Start'
           component={Start}
