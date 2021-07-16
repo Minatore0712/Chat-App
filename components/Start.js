@@ -29,7 +29,7 @@ export default class Start extends React.Component {
       this.props.navigation.navigate("Chat", {
         name: this.state.name,
         btnColor: this.state.btnColor,
-        // setName: this.props.navigation.setOptions({ title: name })
+        setName: this.props.navigation.setOptions({ title: name })
       })
     };
 
