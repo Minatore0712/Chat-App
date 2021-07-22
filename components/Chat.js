@@ -2,7 +2,7 @@ import React from "react";
 import {
   View,
   Text,
-  Button,
+  StyleSheet,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
@@ -11,13 +11,15 @@ import { GiftedChat, Bubble } from "react-native-gifted-chat";
 const firebase = require("firebase");
 require("firebase/firestore");
 
+//config to allow the app to connect to Firestore.
 const firebaseConfig = {
-  apiKey: "AIzaSyCYhM7ZWoVZLLUD5xzpcepyID3B5w1sfuE",
-  authDomain: "test-8b82a.firebaseapp.com",
-  databaseURL: "https://test-8b82a.firebaseio.com",
-  projectId: "test-8b82a",
-  storageBucket: "test-8b82a.appspot.com",
-  messagingSenderId: "202131758796",
+  apiKey: "AIzaSyBfohs7Y3T5IZIwRz5x4dL8WEgUFX8HWEg",
+    authDomain: "test-56fa0.firebaseapp.com",
+    projectId: "test-56fa0",
+    storageBucket: "test-56fa0.appspot.com",
+    messagingSenderId: "1045240985998",
+    appId: "1:1045240985998:web:5ef257003061a304978cdf",
+    measurementId: "G-4XGKKQSDNK"
 };
 
 // The application’s main Chat component that renders the chat UI
@@ -25,13 +27,12 @@ export default class Chat extends React.Component {
   constructor() {
     super();
     this.state = {
-      btnColor: "",
       messages: [],
       user: {
-        _id: "",
-        name: "",
-        avatar: null,
-      },
+        _id: '',
+        name: '',
+        avatar: null
+      }
     };
     //connect to firebase
     if (!firebase.apps.length) {
@@ -49,16 +50,15 @@ export default class Chat extends React.Component {
         firebase.auth().signInAnonymously();
       }
 
+      // this.setState({
+      //   messages: [],
+      // });
       // create a reference to the active user's documents
       this.referenceChatMessages = firebase.firestore().collection("message");
       // listen for collection changes for current user
       this.unsubscribeMessages = this.referenceChatMessages
         .orderBy("createdAt", "desc")
         .onSnapshot(this.onCollectionUpdate);
-    });
-
-    this.setState({
-      btnColor: this.props.route.params.btnColor,
     });
   }
 
@@ -78,14 +78,14 @@ export default class Chat extends React.Component {
       messages.push({
         _id: data._id,
         text: data.text,
-        createdAt: data.createdAt.toDate(),
+        createdAt: new Date(),
         user: data.user,
       });
     });
 
     //access the user’s name
-    const name = this.props.route.params.name;
-    this.props.navigation.setOptions({ title: `${name}'s Chatroom` });
+    const userName = this.props.route.params.userName;
+    this.props.navigation.setOptions({ title: `${userName}'s Chatroom` });
     this.setState({
       messages,
     });
@@ -122,13 +122,14 @@ export default class Chat extends React.Component {
     );
   }
 
+  //change bubble color
   renderBubble(props) {
     return (
       <Bubble
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: "#000",
+            backgroundColor: "black",
           },
         }}
       />
@@ -136,14 +137,16 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    let name = this.props.route.params.name;
-    this.props.navigation.setOptions({ title: name });
+    //access the user’s name
+    let userName = this.props.route.params.userName;
+    //access the background colour selected
+    let backgroundColor = this.props.route.params.backgroundColor;
 
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: this.state.btnColor,
+          backgroundColor: backgroundColor,
         }}
       >
         <GiftedChat
@@ -153,7 +156,7 @@ export default class Chat extends React.Component {
           onSend={(messages) => this.onSend(messages)}
           user={{
             _id: 1,
-            name: name,
+            name: userName,
           }}
         />
         {Platform.OS === "android" ? (
@@ -163,3 +166,18 @@ export default class Chat extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: 40,
+  },
+  item: {
+    fontSize: 20,
+    color: "blue",
+  },
+  text: {
+    fontSize: 30,
+  },
+});

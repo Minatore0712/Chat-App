@@ -1,87 +1,83 @@
-import { Assets } from "@react-navigation/stack";
 import React from "react";
 import {
-  ImageBackground,
+  StyleSheet,
   View,
   Text,
-  Button,
-  Alert,
   TextInput,
-  StyleSheet,
-  TouchableOpacity,
+  Button,
+  ImageBackground,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const image = require("../assets/background-image.png");
 
 export default class Start extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", btnColor: "#757083" };
+    this.state = {
+      userName: " ",
+      backgroundColor: " ",
+    };
   }
 
   render() {
-    let { btnColor, name } = this.state;
-
-    const onPressChat = (name) => {
-      if (name === "") {
-        return Alert.alert("Please Enter Your Name to Continue.");
-      }
-      this.props.navigation.navigate("Chat", {
-        name: this.state.name,
-        btnColor: this.state.btnColor,
-        setName: this.props.navigation.setOptions({ title: name })
-      })
-    };
-
     return (
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.imgBackground}
-          source={require("../assets/background-image.png")}
-        >
-          <View style={styles.main}>
+      <ImageBackground
+        source={require("../assets/background-image.png")}
+        style={styles.imgBackground}
+      >
+         <View style={styles.main}>
             <Text style={styles.title}>Chat-App</Text>
           </View>
+
           <View style={styles.chatOptions}>
-            <TextInput
-              style={styles.nameInput}
-              onChangeText={(name) => this.setState({ name })}
-              value={this.state.name}
-              placeholder="Your name"
-            />
-            <View style={styles.box}>
-              <Text style={styles.backgroundColorText}>
-                Choose Background Color:
-              </Text>
-              <View style={styles.btnColor}>
-                <TouchableOpacity
-                  style={styles.btnColor1}
-                  onPress={() => this.setState({ btnColor: "#090C08" })}
-                />
-                <TouchableOpacity
-                  style={styles.btnColor2}
-                  onPress={() => this.setState({ btnColor: "#474056" })}
-                />
-                <TouchableOpacity
-                  style={styles.btnColor3}
-                  onPress={() => this.setState({ btnColor: "#8A95A5" })}
-                />
-                <TouchableOpacity
-                  style={styles.btnColor4}
-                  onPress={() => this.setState({ btnColor: "#B9C6AE" })}
-                />
-              </View>
-            </View>
+          <TextInput
+            style={styles.nameInput}
+            onChangeText={(userName) => this.setState({ userName })}
+            value={this.state.userName}
+            placeholder="add username"
+          />
+          <View style={styles.box}>
+          <Text style={styles.backgroundColorText}>Choose a background colour</Text>
+          <View style={styles.btnColor}>
             <TouchableOpacity
-              style={{ backgroundColor: btnColor, height: 60 }}
-             
-            >
-              <Text style={styles.startText} onPress={() => onPressChat(name)}>
-                Start Chatting
-              </Text>
-            </TouchableOpacity>
+              style={styles.btnColor1}
+              onPress={(color) => this.setState({ backgroundColor: "#090C08" })}
+            />
+            <TouchableOpacity
+              style={styles.btnColor2}
+              onPress={(color) => this.setState({ backgroundColor: "#474056" })}
+            />
+            <TouchableOpacity
+              style={styles.btnColor3}
+              onPress={(color) => this.setState({ backgroundColor: "#8A95A5" })}
+            />
+            <TouchableOpacity
+              style={styles.btnColor4}
+              onPress={(color) => this.setState({ backgroundColor: "#B9C6AE" })}
+            />
           </View>
-        </ImageBackground>
+          </View>
+
+          
+          <View style={styles.startText}>
+            <Button
+              accessible={true}
+              accessibilityLabel="More options"
+              accessibilityHint="Lets you choose to send an image or your geolocation."
+              accessibilityRole="button"
+              color="#757083"
+              title="Start Chat"
+              onPress={() =>
+                this.props.navigation.navigate("Chat", {
+                  userName: this.state.userName,
+                  backgroundColor: this.state.backgroundColor,
+                })
+              }
+            />
+          </View>
+        </View>
+      </ImageBackground>
       </View>
     );
   }
