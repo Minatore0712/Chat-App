@@ -1,20 +1,40 @@
 # Chat-app
-A native app for mobile devices allowing users to chat but also share images, take pictures and share their location.
+A native app for mobile devices allowing users to chat, share images, take pictures and share their location.
 
 # Key Features
 - Users can enter their name and choose a background color for the chat screen
+- Users can send Images and share their location
+- Data can be viewed offline
 
 # Technologies
 - React Native
 - Expo
+- Firestore Database
+- Gifted Chat
+- Android Studio
 
-# Setup
-Start by downloading/cloning this repository
-Install dependencies in the project's root directory
+# Getting Started
+
+Download/clone this repository.
+
+Install dependencies with:
 ```
 npm install
 ```
-To start the project, run the following in your terminal:
+
+install expo:
+```
+npm install expo-cli --global
+```
+Create an account on [Expo.io](https://expo.io)
+
+To run the app on machine via a simulator/emulator: 
+- [Android Studio](https://docs.expo.io/workflow/android-studio-emulator/)
+- [iOS Simulator](https://docs.expo.io/workflow/ios-simulator/) (MacOS only)
+
+run the project:
 ```
 expo start
 ```
+
+
